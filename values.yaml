@@ -47,6 +47,10 @@ ingress:
   modSecurity:
     enabled: false
     secRuleEngine: "DetectionOnly"
+    # secRules:
+    #   - variable: ""
+    #     operator: ""
+    #     action: ""
 prometheus:
   metrics: false
 livenessProbe:
