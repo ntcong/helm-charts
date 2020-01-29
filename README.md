@@ -10,6 +10,7 @@
 | ---                           | ---         | ---                                |
 | replicaCount                  |             | `1`                                |
 | strategyType                  | Pod deployment [strategy](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy) | `nil` |
+| enableSelector                | If `true`, enables selector field for the deployment | `nil` |
 | image.repository              |             | `gitlab.example.com/group/project` |
 | image.tag                     |             | `stable`                           |
 | image.pullPolicy              |             | `Always`                           |

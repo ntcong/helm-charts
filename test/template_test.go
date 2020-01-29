@@ -24,9 +24,10 @@ func TestDeploymentTemplate(t *testing.T) {
 		Release  string
 		Values   map[string]string
 
-		ExpectedName         string
-		ExpectedRelease      string
-		ExpectedStrategyType extensions.DeploymentStrategyType
+		ExpectedName           string
+		ExpectedRelease        string
+		ExpectedStrategyType   extensions.DeploymentStrategyType
+		ExpectedToHaveSelector bool
 	}{
 		{
 			CaseName: "happy",
@@ -34,16 +35,18 @@ func TestDeploymentTemplate(t *testing.T) {
 			Values: map[string]string{
 				"releaseOverride": "productionOverridden",
 			},
-			ExpectedName:         "productionOverridden",
-			ExpectedRelease:      "production",
-			ExpectedStrategyType: extensions.DeploymentStrategyType(""),
+			ExpectedName:           "productionOverridden",
+			ExpectedRelease:        "production",
+			ExpectedStrategyType:   extensions.DeploymentStrategyType(""),
+			ExpectedToHaveSelector: false,
 		},
 		{
-			CaseName:             "long release name",
-			Release:              strings.Repeat("r", 80),
-			ExpectedName:         strings.Repeat("r", 63),
-			ExpectedRelease:      strings.Repeat("r", 80),
-			ExpectedStrategyType: extensions.DeploymentStrategyType(""),
+			CaseName:               "long release name",
+			Release:                strings.Repeat("r", 80),
+			ExpectedName:           strings.Repeat("r", 63),
+			ExpectedRelease:        strings.Repeat("r", 80),
+			ExpectedStrategyType:   extensions.DeploymentStrategyType(""),
+			ExpectedToHaveSelector: false,
 		},
 		{
 			CaseName: "strategyType",
@@ -51,9 +54,21 @@ func TestDeploymentTemplate(t *testing.T) {
 			Values: map[string]string{
 				"strategyType": "Recreate",
 			},
-			ExpectedName:         "production",
-			ExpectedRelease:      "production",
-			ExpectedStrategyType: extensions.RecreateDeploymentStrategyType,
+			ExpectedName:           "production",
+			ExpectedRelease:        "production",
+			ExpectedStrategyType:   extensions.RecreateDeploymentStrategyType,
+			ExpectedToHaveSelector: false,
+		},
+		{
+			CaseName: "enableSelector",
+			Release:  "production",
+			Values: map[string]string{
+				"enableSelector": "true",
+			},
+			ExpectedName:           "production",
+			ExpectedRelease:        "production",
+			ExpectedStrategyType:   extensions.DeploymentStrategyType(""),
+			ExpectedToHaveSelector: true,
 		},
 	} {
 		t.Run(tc.CaseName, func(t *testing.T) {
@@ -92,6 +107,14 @@ func TestDeploymentTemplate(t *testing.T) {
 				"track":    "stable",
 			}, deployment.Labels)
 
+			if tc.ExpectedToHaveSelector {
+				require.Equal(t, map[string]string{
+					"app":     tc.ExpectedName,
+					"release": tc.ExpectedRelease,
+					"tier":    "web",
+					"track":   "stable",
+				}, deployment.Spec.Selector.MatchLabels)
+			}
 			require.Equal(t, map[string]string{
 				"app.gitlab.com/app":           "auto-devops-examples/minimal-ruby-app",
 				"app.gitlab.com/env":           "prod",
