@@ -27,7 +27,7 @@ func TestDeploymentTemplate(t *testing.T) {
 		ExpectedName         string
 		ExpectedRelease      string
 		ExpectedStrategyType extensions.DeploymentStrategyType
-		ExpectedMatchLabels  map[string]string
+		ExpectedSelector     *metav1.LabelSelector
 	}{
 		{
 			CaseName: "happy",
@@ -65,11 +65,13 @@ func TestDeploymentTemplate(t *testing.T) {
 			ExpectedName:         "production",
 			ExpectedRelease:      "production",
 			ExpectedStrategyType: extensions.DeploymentStrategyType(""),
-			ExpectedMatchLabels: map[string]string{
-				"app":     "production",
-				"release": "production",
-				"tier":    "web",
-				"track":   "stable",
+			ExpectedSelector: &metav1.LabelSelector{
+				MatchLabels: map[string]string{
+					"app":     "production",
+					"release": "production",
+					"tier":    "web",
+					"track":   "stable",
+				},
 			},
 		},
 	} {
@@ -109,11 +111,8 @@ func TestDeploymentTemplate(t *testing.T) {
 				"track":    "stable",
 			}, deployment.Labels)
 
-			if len(tc.ExpectedMatchLabels) != 0 {
-				require.Equal(t, tc.ExpectedMatchLabels, deployment.Spec.Selector.MatchLabels)
-			} else {
-				require.Nil(t, deployment.Spec.Selector)
-			}
+			require.Equal(t, tc.ExpectedSelector, deployment.Spec.Selector)
+
 			require.Equal(t, map[string]string{
 				"app.gitlab.com/app":           "auto-devops-examples/minimal-ruby-app",
 				"app.gitlab.com/env":           "prod",
