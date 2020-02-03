@@ -198,6 +198,45 @@ func TestWorkerDeploymentTemplate(t *testing.T) {
 				},
 			},
 		},
+		{
+			CaseName: "enableSelector",
+			Release:  "production",
+			Values: map[string]string{
+				"enableSelector":             "true",
+				"workers.worker1.command[0]": "echo",
+				"workers.worker1.command[1]": "worker1",
+				"workers.worker2.command[0]": "echo",
+				"workers.worker2.command[1]": "worker2",
+			},
+			ExpectedName:    "production",
+			ExpectedRelease: "production",
+			ExpectedDeployments: []workerDeploymentTestCase{
+				{
+					ExpectedName:         "production-worker1",
+					ExpectedCmd:          []string{"echo", "worker1"},
+					ExpectedStrategyType: extensions.DeploymentStrategyType(""),
+					ExpectedSelector: &metav1.LabelSelector{
+						MatchLabels: map[string]string{
+							"release": "production",
+							"tier":    "worker",
+							"track":   "stable",
+						},
+					},
+				},
+				{
+					ExpectedName:         "production-worker2",
+					ExpectedCmd:          []string{"echo", "worker2"},
+					ExpectedStrategyType: extensions.DeploymentStrategyType(""),
+					ExpectedSelector: &metav1.LabelSelector{
+						MatchLabels: map[string]string{
+							"release": "production",
+							"tier":    "worker",
+							"track":   "stable",
+						},
+					},
+				},
+			},
+		},
 	} {
 		t.Run(tc.CaseName, func(t *testing.T) {
 			namespaceName := "minimal-ruby-app-" + strings.ToLower(random.UniqueId())
@@ -237,6 +276,8 @@ func TestWorkerDeploymentTemplate(t *testing.T) {
 					"tier":     "worker",
 					"track":    "stable",
 				}, deployment.Labels)
+
+				require.Equal(t, expectedDeployment.ExpectedSelector, deployment.Spec.Selector)
 
 				require.Equal(t, map[string]string{
 					"app.gitlab.com/app":           "auto-devops-examples/minimal-ruby-app",
@@ -361,6 +402,7 @@ type workerDeploymentTestCase struct {
 	ExpectedName         string
 	ExpectedCmd          []string
 	ExpectedStrategyType extensions.DeploymentStrategyType
+	ExpectedSelector     *metav1.LabelSelector
 }
 
 type deploymentList struct {

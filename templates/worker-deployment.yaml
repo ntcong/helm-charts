@@ -17,6 +17,13 @@ items:
       release: {{ $.Release.Name }}
       heritage: {{ $.Release.Service }}
   spec:
+  {{- if $.Values.enableSelector }}
+    selector:
+      matchLabels:
+        track: "{{ $.Values.application.track }}"
+        tier: worker
+        release: {{ $.Release.Name }}
+  {{- end }}
     replicas: {{ $workerConfig.replicaCount }}
   {{- if $workerConfig.strategyType }}
     strategy:
