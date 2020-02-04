@@ -27,6 +27,7 @@ func TestDeploymentTemplate(t *testing.T) {
 		ExpectedName         string
 		ExpectedRelease      string
 		ExpectedStrategyType extensions.DeploymentStrategyType
+		ExpectedSelector     *metav1.LabelSelector
 	}{
 		{
 			CaseName: "happy",
@@ -54,6 +55,24 @@ func TestDeploymentTemplate(t *testing.T) {
 			ExpectedName:         "production",
 			ExpectedRelease:      "production",
 			ExpectedStrategyType: extensions.RecreateDeploymentStrategyType,
+		},
+		{
+			CaseName: "enableSelector",
+			Release:  "production",
+			Values: map[string]string{
+				"enableSelector": "true",
+			},
+			ExpectedName:         "production",
+			ExpectedRelease:      "production",
+			ExpectedStrategyType: extensions.DeploymentStrategyType(""),
+			ExpectedSelector: &metav1.LabelSelector{
+				MatchLabels: map[string]string{
+					"app":     "production",
+					"release": "production",
+					"tier":    "web",
+					"track":   "stable",
+				},
+			},
 		},
 	} {
 		t.Run(tc.CaseName, func(t *testing.T) {
@@ -91,6 +110,8 @@ func TestDeploymentTemplate(t *testing.T) {
 				"tier":     "web",
 				"track":    "stable",
 			}, deployment.Labels)
+
+			require.Equal(t, tc.ExpectedSelector, deployment.Spec.Selector)
 
 			require.Equal(t, map[string]string{
 				"app.gitlab.com/app":           "auto-devops-examples/minimal-ruby-app",
