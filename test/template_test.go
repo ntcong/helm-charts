@@ -82,9 +82,9 @@ func TestDeploymentTemplate(t *testing.T) {
 				"gitlab.app": "auto-devops-examples/minimal-ruby-app",
 				"gitlab.env": "prod",
 			}
-			for k, v := range tc.Values {
-				values[k] = v
-			}
+
+			mergeStringMap(values, tc.Values)
+
 			options := &helm.Options{
 				SetValues:      values,
 				KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
@@ -398,6 +398,61 @@ func TestNetworkPolicyDeployment(t *testing.T) {
 	}
 }
 
+func TestIngressTemplate_ModSecurity(t *testing.T) {
+	templates := []string{"templates/ingress.yaml"}
+	modSecuritySnippet := "SecRuleEngine DetectionOnly\n"
+	modSecuritySnippetWithSecRules := modSecuritySnippet + `SecRule REQUEST_HEADERS:User-Agent \"scanner\" \"log,deny,id:107,status:403,msg:\'Scanner Identified\'\"
+SecRule REQUEST_HEADERS:Content-Type \"text/plain\" \"log,deny,id:\'20010\',status:403,msg:\'Text plain not allowed\'\"
+`
+	defaultAnnotations := map[string]string{
+		"kubernetes.io/ingress.class": "nginx",
+		"kubernetes.io/tls-acme":      "true",
+	}
+	modSecurityAnnotations := make(map[string]string)
+	secRulesAnnotations := make(map[string]string)
+	mergeStringMap(modSecurityAnnotations, defaultAnnotations)
+	mergeStringMap(secRulesAnnotations, defaultAnnotations)
+	modSecurityAnnotations["nginx.ingress.kubernetes.io/modsecurity-snippet"] = modSecuritySnippet
+	secRulesAnnotations["nginx.ingress.kubernetes.io/modsecurity-snippet"] = modSecuritySnippetWithSecRules
+
+	tcs := []struct {
+		name       string
+		valueFiles []string
+		values     map[string]string
+		meta       metav1.ObjectMeta
+	}{
+		{
+			name: "defaults",
+			meta: metav1.ObjectMeta{Annotations: defaultAnnotations},
+		},
+		{
+			name:   "with modSecurity enabled without custom secRules",
+			values: map[string]string{"ingress.modSecurity.enabled": "true"},
+			meta:   metav1.ObjectMeta{Annotations: modSecurityAnnotations},
+		},
+		{
+			name:       "with custom secRules",
+			valueFiles: []string{"./testdata/modsecurity-ingress.yaml"},
+			meta:       metav1.ObjectMeta{Annotations: secRulesAnnotations},
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			opts := &helm.Options{
+				ValuesFiles: tc.valueFiles,
+				SetValues:   tc.values,
+			}
+			output := helm.RenderTemplate(t, opts, helmChartPath, "", templates)
+
+			ingress := new(extensions.Ingress)
+			helm.UnmarshalK8SYaml(t, output, ingress)
+
+			require.Equal(t, tc.meta.Annotations, ingress.ObjectMeta.Annotations)
+		})
+	}
+}
+
 type workerDeploymentTestCase struct {
 	ExpectedName         string
 	ExpectedCmd          []string
@@ -409,4 +464,10 @@ type deploymentList struct {
 	metav1.TypeMeta `json:",inline"`
 
 	Items []extensions.Deployment `json:"items" protobuf:"bytes,2,rep,name=items"`
+}
+
+func mergeStringMap(dst, src map[string]string) {
+	for k, v := range src {
+		dst[k] = v
+	}
 }
