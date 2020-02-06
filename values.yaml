@@ -7,7 +7,7 @@ enableSelector:
 image:
   repository: gitlab.example.com/group/project
   tag: stable
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   secrets:
     - name: gitlab-registry
 podAnnotations: {}
