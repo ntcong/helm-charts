@@ -14,7 +14,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-{{- if .Values.enableSelector }}
+{{- if or .Values.enableSelector (eq .Values.deploymentApiVersion "apps/v1") }}
   selector:
     matchLabels:
       app: {{ template "appname" . }}

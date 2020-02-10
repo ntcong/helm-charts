@@ -10,8 +10,8 @@
 | ---                           | ---         | ---                                |
 | replicaCount                  |             | `1`                                |
 | strategyType                  | Pod deployment [strategy](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy) | `nil` |
-| enableSelector                | If `true`, enables selector field for the deployment | `nil` |
-| deploymentApiVersion          | Sets `apiVersion` field for the deployment. Can be set to either `extensions/v1beta1` or `apps/v1`. Note: set `enableSelector` to `true` if using `apps/v1`, as selector is required in that version. | `extensions/v1beta1` |
+| enableSelector                | If `true`, enables selector field for the deployment. Only applicable for `extensions/v1beta1`, as selector field will always be included for `apps/v1` | `nil` |
+| deploymentApiVersion          | Sets `apiVersion` field for the deployment. Can be set to either `extensions/v1beta1` or `apps/v1`. | `extensions/v1beta1` |
 | image.repository              |             | `gitlab.example.com/group/project` |
 | image.tag                     |             | `stable`                           |
 | image.pullPolicy              |             | `Always`                           |
