@@ -408,10 +408,15 @@ SecRule REQUEST_HEADERS:Content-Type \"text/plain\" \"log,deny,id:\'20010\',stat
 		"kubernetes.io/ingress.class": "nginx",
 		"kubernetes.io/tls-acme":      "true",
 	}
+	defaultModSecurityAnnotations := map[string]string{
+		"nginx.ingress.kubernetes.io/modsecurity-transaction-id": "$server_name-$request_id",
+	}
 	modSecurityAnnotations := make(map[string]string)
 	secRulesAnnotations := make(map[string]string)
 	mergeStringMap(modSecurityAnnotations, defaultAnnotations)
+	mergeStringMap(modSecurityAnnotations, defaultModSecurityAnnotations)
 	mergeStringMap(secRulesAnnotations, defaultAnnotations)
+	mergeStringMap(secRulesAnnotations, defaultModSecurityAnnotations)
 	modSecurityAnnotations["nginx.ingress.kubernetes.io/modsecurity-snippet"] = modSecuritySnippet
 	secRulesAnnotations["nginx.ingress.kubernetes.io/modsecurity-snippet"] = modSecuritySnippetWithSecRules
 

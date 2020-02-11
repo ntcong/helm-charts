@@ -14,6 +14,7 @@ metadata:
 {{- end }}
 {{- with .Values.ingress.modSecurity }}
 {{- if .enabled }}
+    nginx.ingress.kubernetes.io/modsecurity-transaction-id: "$server_name-$request_id"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine {{ .secRuleEngine | default "DetectionOnly" | title }}
 {{- range $rule := .secRules }}
