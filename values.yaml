@@ -4,6 +4,7 @@
 replicaCount: 1
 strategyType:
 enableSelector:
+deploymentApiVersion: extensions/v1beta1
 image:
   repository: gitlab.example.com/group/project
   tag: stable
