@@ -83,7 +83,7 @@ items:
               scheme: {{ $.Values.readinessProbe.scheme }}
               port: {{ $.Values.service.internalPort }}
 {{- else if eq $.Values.readinessProbe.probeType "tcpSocket" }}
-          tcpSocket:
+            tcpSocket:
               port: {{ $.Values.service.internalPort }}
 {{- end }}
             initialDelaySeconds: {{ $.Values.readinessProbe.initialDelaySeconds }}
