@@ -9,6 +9,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/stretchr/testify/require"
 	appsV1 "k8s.io/api/apps/v1"
+	coreV1 "k8s.io/api/core/v1"
 	extensions "k8s.io/api/extensions/v1beta1"
 	netV1 "k8s.io/api/networking/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -643,6 +644,97 @@ SecRule REQUEST_HEADERS:Content-Type \"text/plain\" \"log,deny,id:\'20010\',stat
 			helm.UnmarshalK8SYaml(t, output, ingress)
 
 			require.Equal(t, tc.meta.Annotations, ingress.ObjectMeta.Annotations)
+		})
+	}
+}
+
+func TestIngressTemplate_Disable(t *testing.T) {
+	templates := []string{"templates/ingress.yaml"}
+	releaseName := "ingress-disable-test"
+	tcs := []struct {
+		name   string
+		values map[string]string
+
+		expectedrelease string
+	}{
+		{
+			name:            "defaults",
+			expectedrelease: releaseName + "-auto-deploy",
+		},
+		{
+			name:            "with service enabled and track non-stable",
+			values:          map[string]string{"service.enabled": "true", "application.track": "non-stable"},
+			expectedrelease: "",
+		},
+		{
+			name:            "with service disabled and track stable",
+			values:          map[string]string{"service.enabled": "false", "application.track": "stable"},
+			expectedrelease: "",
+		},
+		{
+			name:            "with service disabled and track non-stable",
+			values:          map[string]string{"service.enabled": "false", "application.track": "non-stable"},
+			expectedrelease: "",
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			opts := &helm.Options{
+				SetValues: tc.values,
+			}
+			output := helm.RenderTemplate(t, opts, helmChartPath, releaseName, templates)
+
+			ingress := new(extensions.Ingress)
+
+			helm.UnmarshalK8SYaml(t, output, ingress)
+			require.Equal(t, tc.expectedrelease, ingress.ObjectMeta.Name)
+		})
+	}
+}
+
+func TestServiceTemplate_Disable(t *testing.T) {
+	templates := []string{"templates/service.yaml"}
+	releaseName := "service-disable-test"
+	tcs := []struct {
+		name   string
+		values map[string]string
+
+		expectedrelease string
+	}{
+		{
+			name:            "defaults",
+			expectedrelease: releaseName + "-auto-deploy",
+		},
+		{
+			name:            "with service enabled and track non-stable",
+			values:          map[string]string{"service.enabled": "true", "application.track": "non-stable"},
+			expectedrelease: "",
+		},
+		{
+			name:            "with service disabled and track stable",
+			values:          map[string]string{"service.enabled": "false", "application.track": "stable"},
+			expectedrelease: "",
+		},
+		{
+			name:            "with service disabled and track non-stable",
+			values:          map[string]string{"service.enabled": "false", "application.track": "non-stable"},
+			expectedrelease: "",
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			opts := &helm.Options{
+				SetValues: tc.values,
+			}
+			output := helm.RenderTemplate(t, opts, helmChartPath, releaseName, templates)
+
+			service := new(coreV1.Service)
+
+			helm.UnmarshalK8SYaml(t, output, service)
+
+			require.Equal(t, tc.expectedrelease, service.ObjectMeta.Name)
 		})
 	}
 }
