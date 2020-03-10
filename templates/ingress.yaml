@@ -1,4 +1,4 @@
-{{- if .Values.service.enabled -}}
+{{- if and (.Values.service.enabled) (eq .Values.application.track "stable") -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
