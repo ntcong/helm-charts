@@ -89,10 +89,10 @@ items:
 {{- else if eq $.Values.readinessProbe.probeType "tcpSocket" }}
             tcpSocket:
               port: {{ $.Values.service.internalPort }}
-{{- else if eq .Values.livenessProbe.probeType "exec" }}
+{{- else if eq .Values.readinessProbe.probeType "exec" }}
           exec:
             command:
-{{ toYaml .Values.livenessProbe.command | indent 14 }}
+{{ toYaml .Values.readinessProbe.command | indent 14 }}
 {{- end }}
             initialDelaySeconds: {{ $.Values.readinessProbe.initialDelaySeconds }}
             timeoutSeconds: {{ $.Values.readinessProbe.timeoutSeconds }}
