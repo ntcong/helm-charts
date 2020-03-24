@@ -76,7 +76,7 @@ items:
 {{- else if eq $.Values.livenessProbe.probeType "exec" }}
             exec:
               command:
-{{ toYaml .Values.livenessProbe.command | indent 16 }}
+{{ toYaml $.Values.livenessProbe.command | indent 16 }}
 {{- end }}
             initialDelaySeconds: {{ $.Values.livenessProbe.initialDelaySeconds }}
             timeoutSeconds: {{ $.Values.livenessProbe.timeoutSeconds }}
@@ -92,7 +92,7 @@ items:
 {{- else if eq $.Values.readinessProbe.probeType "exec" }}
             exec:
               command:
-{{ toYaml .Values.readinessProbe.command | indent 16 }}
+{{ toYaml $.Values.readinessProbe.command | indent 16 }}
 {{- end }}
             initialDelaySeconds: {{ $.Values.readinessProbe.initialDelaySeconds }}
             timeoutSeconds: {{ $.Values.readinessProbe.timeoutSeconds }}
