@@ -1,5 +1,5 @@
 {{- if not .Values.application.initializeCommand -}}
-apiVersion: {{ default "extensions/v1beta1" .Values.deploymentApiVersion }}
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "trackableappname" . }}
@@ -7,21 +7,16 @@ metadata:
     {{ if .Values.gitlab.app }}app.gitlab.com/app: {{ .Values.gitlab.app | quote }}{{ end }}
     {{ if .Values.gitlab.env }}app.gitlab.com/env: {{ .Values.gitlab.env | quote }}{{ end }}
   labels:
-    app: {{ template "appname" . }}
     track: "{{ .Values.application.track }}"
     tier: "{{ .Values.application.tier }}"
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+{{ include "sharedlabels" . | indent 4 }}
 spec:
-{{- if or .Values.enableSelector (eq (default "extensions/v1beta1" .Values.deploymentApiVersion) "apps/v1") }}
   selector:
     matchLabels:
       app: {{ template "appname" . }}
       track: "{{ .Values.application.track }}"
       tier: "{{ .Values.application.tier }}"
       release: {{ .Release.Name }}
-{{- end }}
   replicas: {{ .Values.replicaCount }}
 {{- if .Values.strategyType }}
   strategy:
@@ -37,16 +32,30 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
       labels:
-        app: {{ template "appname" . }}
         track: "{{ .Values.application.track }}"
         tier: "{{ .Values.application.tier }}"
-        release: {{ .Release.Name }}
+{{ include "sharedlabels" . | indent 8 }}
     spec:
+{{- if .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName | quote }}
+{{- end }}
       imagePullSecrets:
 {{ toYaml .Values.image.secrets | indent 10 }}
+{{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+{{- end }}
+{{- if .Values.tolerations }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+{{- end }}
+{{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}
+{{- end }}
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: {{ template "imagename" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         {{- if .Values.application.secretName }}
         envFrom:
@@ -74,9 +83,13 @@ spec:
         - name: DATABASE_URL
           value: {{ .Values.application.database_url | quote }}
         - name: GITLAB_ENVIRONMENT_NAME
-          value: {{ .Values.gitlab.envName }}
+          value: {{ .Values.gitlab.envName | quote }}
         - name: GITLAB_ENVIRONMENT_URL
-          value: {{ .Values.gitlab.envURL }}
+          value: {{ .Values.gitlab.envURL | quote }}
+{{- if .Values.lifecycle }}
+        lifecycle:
+{{ toYaml .Values.lifecycle | indent 10 }}
+{{- end }}
         ports:
         - name: "{{ .Values.service.name }}"
           containerPort: {{ .Values.service.internalPort }}
@@ -85,10 +98,10 @@ spec:
           httpGet:
             path: {{ .Values.livenessProbe.path }}
             scheme: {{ .Values.livenessProbe.scheme }}
-            port: {{ .Values.service.internalPort }}
+            port: {{ .Values.livenessProbe.port | default .Values.service.internalPort }}
 {{- else if eq .Values.livenessProbe.probeType "tcpSocket" }}
           tcpSocket:
-            port: {{ .Values.service.internalPort }}
+            port: {{ .Values.livenessProbe.port | default .Values.service.internalPort }}
 {{- else if eq .Values.livenessProbe.probeType "exec" }}
           exec:
             command:
@@ -101,10 +114,10 @@ spec:
           httpGet:
             path: {{ .Values.readinessProbe.path }}
             scheme: {{ .Values.readinessProbe.scheme }}
-            port: {{ .Values.service.internalPort }}
+            port: {{ .Values.readinessProbe.port | default .Values.service.internalPort }}
 {{- else if eq .Values.readinessProbe.probeType "tcpSocket" }}
           tcpSocket:
-            port: {{ .Values.service.internalPort }}
+            port: {{ .Values.readinessProbe.port | default .Values.service.internalPort }}
 {{- else if eq .Values.readinessProbe.probeType "exec" }}
           exec:
             command:

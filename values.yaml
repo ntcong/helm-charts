@@ -3,15 +3,22 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 strategyType:
-enableSelector:
-deploymentApiVersion: extensions/v1beta1
+serviceAccountName:
 image:
   repository: gitlab.example.com/group/project
   tag: stable
   pullPolicy: IfNotPresent
   secrets:
     - name: gitlab-registry
+extraLabels: {}
+lifecycle: {}
+# preStop:
+#   exec:
+#     command: ["/bin/sh", "-c", "sleep 10"]
 podAnnotations: {}
+nodeSelector: {}
+affinity: {}
+tolerations: []
 application:
   track: stable
   tier: web
@@ -29,6 +36,7 @@ gitlab:
   env:
   envName:
   envURL:
+  projectID:
 service:
   enabled: true
   annotations: {}
@@ -40,11 +48,14 @@ service:
   externalPort: 5000
   internalPort: 5000
 ingress:
+  enabled: true
+  path: "/"
   tls:
     enabled: true
+    acme: true
     secretName: ""
+    useDefaultSecret: false
   annotations:
-    kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "nginx"
   modSecurity:
     enabled: false
@@ -53,6 +64,8 @@ ingress:
     #   - variable: ""
     #     operator: ""
     #     action: ""
+  canary:
+    weight:
 prometheus:
   metrics: false
 livenessProbe:
@@ -68,7 +81,6 @@ readinessProbe:
   scheme: "HTTP"
   probeType: "httpGet"
 postgresql:
-  enabled: true
   managed: false
   managedClassSelector:
     #   matchLabels:
@@ -78,7 +90,7 @@ resources:
 #  limits:
 #    cpu: 100m
 #    memory: 128Mi
-  requests:
+  requests: {}
 #    cpu: 100m
 #    memory: 128Mi
 
@@ -106,6 +118,17 @@ networkPolicy:
           matchLabels:
             app.gitlab.com/managed_by: gitlab
 
+ciliumNetworkPolicy:
+  enabled: false
+  alerts:
+    enabled: false
+  spec:
+    endpointSelector: {}
+    ingress:
+    - fromEndpoints:
+      - matchLabels:
+          app.gitlab.com/managed_by: gitlab
+
 workers: {}
   # worker:
   #   replicaCount: 1
@@ -115,6 +138,24 @@ workers: {}
   #   - procfile
   #   - start
   #   - worker
+  #   nodeSelector: {}
+  #   tolerations: []
+  #   livenessProbe:
+  #     path: "/"
+  #     initialDelaySeconds: 15
+  #     timeoutSeconds: 15
+  #     scheme: "HTTP"
+  #     probeType: "httpGet"
+  #   readinessProbe:
+  #     path: "/"
+  #     initialDelaySeconds: 5
+  #     timeoutSeconds: 3
+  #     scheme: "HTTP"
+  #     probeType: "httpGet"
+  #   lifecycle:
+  #     preStop:
+  #       exec:
+  #         command: ["/bin/sh", "-c", "sleep 10"]
   #   preStopCommand:
   #   - /bin/herokuish
   #   - procfile

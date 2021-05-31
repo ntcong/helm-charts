@@ -3,7 +3,7 @@ apiVersion: v1
 kind: List
 items:
 {{- range $workerName, $workerConfig :=  .Values.workers }}
-- apiVersion: {{ default "extensions/v1beta1" $.Values.deploymentApiVersion }}
+- apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: {{ template "trackableappname" $ }}-{{ $workerName }}
@@ -17,13 +17,11 @@ items:
       release: {{ $.Release.Name }}
       heritage: {{ $.Release.Service }}
   spec:
-  {{- if or $.Values.enableSelector (eq (default "extensions/v1beta1" $.Values.deploymentApiVersion) "apps/v1") }}
     selector:
       matchLabels:
         track: "{{ $.Values.application.track }}"
         tier: worker
         release: {{ $.Release.Name }}
-  {{- end }}
     replicas: {{ $workerConfig.replicaCount }}
   {{- if $workerConfig.strategyType }}
     strategy:
@@ -45,10 +43,28 @@ items:
       spec:
         imagePullSecrets:
   {{ toYaml $.Values.image.secrets | indent 12 }}
+{{- with $nodeSelectorConfig := default $.Values.nodeSelector $workerConfig.nodeSelector -}}
+{{- if $nodeSelectorConfig  }}
+        nodeSelector:
+{{ toYaml $nodeSelectorConfig | indent 10 }}
+{{- end }}
+{{- end }}
+{{- with $tolerationsConfig := default $.Values.tolerations $workerConfig.tolerations -}}
+{{- if $tolerationsConfig  }}
+        tolerations:
+{{ toYaml $tolerationsConfig | indent 10 }}
+{{- end }}
+{{- end }}
+{{- with $affinityConfig := default $.Values.affinity $workerConfig.affinity -}}
+{{- if $affinityConfig  }}
+        affinity:
+{{ toYaml $affinityConfig | indent 10 }}
+{{- end }}
+{{- end }}
         terminationGracePeriodSeconds: {{ $workerConfig.terminationGracePeriodSeconds }}
         containers:
         - name: {{ $.Chart.Name }}-{{ $workerName }}
-          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+          image: {{ template "imagename" $ }}
           command:
           {{- range $workerConfig.command }}
           - {{ . }}
@@ -63,47 +79,60 @@ items:
           - name: DATABASE_URL
             value: {{ $.Values.application.database_url | quote }}
           - name: GITLAB_ENVIRONMENT_NAME
-            value: {{ $.Values.gitlab.envName }}
+            value: {{ $.Values.gitlab.envName | quote }}
+{{- with $livenessProbeConfig := default $.Values.livenessProbe $workerConfig.livenessProbe -}}
+{{- if $livenessProbeConfig }}
           livenessProbe:
-{{- if eq $.Values.livenessProbe.probeType "httpGet" }}
+{{- if eq $livenessProbeConfig.probeType "httpGet" }}
             httpGet:
-              path: {{ $.Values.livenessProbe.path }}
-              scheme: {{ $.Values.livenessProbe.scheme }}
-              port: {{ $.Values.service.internalPort }}
-{{- else if eq $.Values.livenessProbe.probeType "tcpSocket" }}
+              path: {{ $livenessProbeConfig.path }}
+              scheme: {{ $livenessProbeConfig.scheme }}
+              port: {{ $livenessProbeConfig.port | default $.Values.service.internalPort }}
+{{- else if eq $livenessProbeConfig.probeType "tcpSocket" }}
             tcpSocket:
-              port: {{ $.Values.service.internalPort }}
-{{- else if eq $.Values.livenessProbe.probeType "exec" }}
+              port: {{ $livenessProbeConfig.port | default $.Values.service.internalPort }}
+{{- else if eq $livenessProbeConfig.probeType "exec" }}
             exec:
               command:
-{{ toYaml $.Values.livenessProbe.command | indent 16 }}
+{{ toYaml $livenessProbeConfig.command | indent 16 }}
 {{- end }}
-            initialDelaySeconds: {{ $.Values.livenessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ $.Values.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ $livenessProbeConfig.initialDelaySeconds }}
+            timeoutSeconds: {{ $livenessProbeConfig.timeoutSeconds }}
+{{- end }}
+{{- end }}
+{{- with $readinessProbeConfig := default $.Values.readinessProbe $workerConfig.readinessProbe -}}
+{{- if $readinessProbeConfig }}
           readinessProbe:
-{{- if eq $.Values.readinessProbe.probeType "httpGet" }}
+{{- if eq $readinessProbeConfig.probeType "httpGet" }}
             httpGet:
-              path: {{ $.Values.readinessProbe.path }}
-              scheme: {{ $.Values.readinessProbe.scheme }}
-              port: {{ $.Values.service.internalPort }}
-{{- else if eq $.Values.readinessProbe.probeType "tcpSocket" }}
+              path: {{ $readinessProbeConfig.path }}
+              scheme: {{ $readinessProbeConfig.scheme }}
+              port: {{ $readinessProbeConfig.port | default $.Values.service.internalPort }}
+{{- else if eq $readinessProbeConfig.probeType "tcpSocket" }}
             tcpSocket:
-              port: {{ $.Values.service.internalPort }}
-{{- else if eq $.Values.readinessProbe.probeType "exec" }}
+              port: {{ $readinessProbeConfig.port | default $.Values.service.internalPort }}
+{{- else if eq $readinessProbeConfig.probeType "exec" }}
             exec:
               command:
-{{ toYaml $.Values.readinessProbe.command | indent 16 }}
+{{ toYaml $readinessProbeConfig.command | indent 16 }}
 {{- end }}
-            initialDelaySeconds: {{ $.Values.readinessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ $.Values.readinessProbe.timeoutSeconds }}
-          {{- if $workerConfig.preStopCommand }}
+            initialDelaySeconds: {{ $readinessProbeConfig.initialDelaySeconds }}
+            timeoutSeconds: {{ $readinessProbeConfig.timeoutSeconds }}
+{{- end }}
+{{- end }}
+          {{- if or $workerConfig.lifecycle $workerConfig.preStopCommand }}
           lifecycle:
+          {{- if $workerConfig.lifecycle }}
+{{ toYaml $workerConfig.lifecycle | indent 12 }}
+          {{- end }}
+            {{- if $workerConfig.preStopCommand }}
             preStop:
               exec:
                 command:
                 {{- range $workerConfig.preStopCommand }}
                 - {{ . }}
                 {{- end }}
+            {{- end}}
           {{- end }}
           resources:
 {{ toYaml $.Values.resources | indent 12 }}
