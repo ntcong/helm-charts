@@ -125,6 +125,12 @@ spec:
 {{- end }}
           initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
           timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+{{- if .Values.extra.containers }}
+{{ toYaml .Values.extra.containers | indent 8 }}
+{{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
+{{- if .Values.extra.spec }}
+{{ toYaml .Values.extra.spec | indent 6 }}
+{{- end }}
 {{- end -}}

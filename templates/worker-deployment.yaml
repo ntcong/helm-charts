@@ -122,6 +122,9 @@ items:
             timeoutSeconds: {{ $readinessProbeConfig.timeoutSeconds }}
 {{- end }}
 {{- end }}
+{{- if $.Values.extra.containers }}
+{{ toYaml $.Values.extra.containers | indent 10 }}
+{{- end }}
           {{- if or $workerConfig.lifecycle $workerConfig.preStopCommand }}
           lifecycle:
           {{- if $workerConfig.lifecycle }}
@@ -138,5 +141,8 @@ items:
           {{- end }}
           resources:
 {{ toYaml $.Values.resources | indent 12 }}
+{{- if $.Values.extra.spec }}
+{{ toYaml $.Values.extra.spec | indent 8 }}
+{{- end }}
 {{- end -}}
 {{- end -}}
