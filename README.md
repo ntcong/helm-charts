@@ -10,7 +10,10 @@
 | ---                           | ---         | ---                                |
 | replicaCount                  |             | `1`                                |
 | strategyType                  | Pod deployment [strategy](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy) | `nil` |
-| serviceAccountName            | Pod service account name override  | `nil` |
+| serviceAccountName(**DEPRECATED**)            | Pod service account name override  | `nil` |
+| serviceAccount.name           | Name of service account to use for running the pods | `nil` |
+| serviceAccount.createNew      | If set to `true`, a new service account will be created with the details specified in the other fields under `serviceAccount`. If set to `false`, the service account specified in `serviceAccount.name` is expected to already exist. | `false` |
+| serviceAccount.annotations    | Annotations for the service account to be created | `nil` |
 | image.repository              |             | `gitlab.example.com/group/project` |
 | image.tag                     |             | `stable`                           |
 | image.pullPolicy              |             | `Always`                           |

@@ -80,6 +80,8 @@ items:
             value: {{ $.Values.application.database_url | quote }}
           - name: GITLAB_ENVIRONMENT_NAME
             value: {{ $.Values.gitlab.envName | quote }}
+          - name: GITLAB_ENVIRONMENT_URL
+            value: {{ $.Values.gitlab.envURL | quote }}
 {{- with $livenessProbeConfig := default $.Values.livenessProbe $workerConfig.livenessProbe -}}
 {{- if $livenessProbeConfig }}
           livenessProbe:

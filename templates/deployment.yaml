@@ -36,8 +36,8 @@ spec:
         tier: "{{ .Values.application.tier }}"
 {{ include "sharedlabels" . | indent 8 }}
     spec:
-{{- if .Values.serviceAccountName }}
-      serviceAccountName: {{ .Values.serviceAccountName | quote }}
+{{- if or (.Values.serviceAccount.name) (.Values.serviceAccountName) }}
+      serviceAccountName: {{ .Values.serviceAccount.name | default .Values.serviceAccountName | quote }}
 {{- end }}
       imagePullSecrets:
 {{ toYaml .Values.image.secrets | indent 10 }}

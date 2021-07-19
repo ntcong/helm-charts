@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 strategyType:
+# `serviceAccountName` is deprecated in favor of `serviceAccount.name`
 serviceAccountName:
 image:
   repository: gitlab.example.com/group/project
@@ -128,6 +129,11 @@ ciliumNetworkPolicy:
     - fromEndpoints:
       - matchLabels:
           app.gitlab.com/managed_by: gitlab
+
+serviceAccount:
+  name:
+  annotations: {}
+  createNew: false
 
 workers: {}
   # worker:
