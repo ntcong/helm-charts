@@ -41,6 +41,9 @@ items:
           tier: worker
           release: {{ $.Release.Name }}
       spec:
+{{- if or ($.Values.serviceAccount.name) ($.Values.serviceAccountName) }}
+        serviceAccountName: {{ $.Values.serviceAccount.name | default $.Values.serviceAccountName | quote }}
+{{- end }}
         imagePullSecrets:
   {{ toYaml $.Values.image.secrets | indent 12 }}
 {{- with $nodeSelectorConfig := default $.Values.nodeSelector $workerConfig.nodeSelector -}}
