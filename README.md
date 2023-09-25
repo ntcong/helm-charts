@@ -25,7 +25,7 @@
 | dnsConfig                     | [Pod DNS config](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config)  | `{}` |
 | nodeSelector                  | Node labels for pod assignment | `{}`           |
 | tolerations                   | List of node taints to tolerate | `[]`          |
-| priorityClassName             | Assign node [priority](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) from priorityClass | `""` 
+| priorityClassName             | Assign node [priority](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) from priorityClass | `""`
 | terminationGracePeriodSeconds | The amount of time in seconds a pod is given to terminate | [See the Kubernetes API for reference](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#lifecycle)          |
 | hostAliases                   | If present, this will set static hosts to the pod configuration | [See the Kubernetes API for reference](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#hostname-and-name-resolution) |
 | initContainers                | Containers that are run before the app containers are started. | `[]`          |
@@ -44,7 +44,7 @@
 | hpa.minReplicas               |             | `1`                                |
 | hpa.maxReplicas               |             | `5`                                |
 | hpa.targetCPUUtilizationPercentage | `autoscaling/v1` - Percentage threshold for when HPA begins scaling out pods. Ignored if `hpa.metrics` is present. | `nil` |
-| hpa.metrics                   | `autoscaling/v2beta2`  [metrics](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) definitions for when HPA begins scaling out pods.  | `nil` |
+| hpa.metrics                   | `autoscaling/v2`  [metrics](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) definitions for when HPA begins scaling out pods.  | `nil` |
 | gitlab.app                    | GitLab project slug. | `nil` |
 | gitlab.env                    | GitLab environment slug. | `nil` |
 | gitlab.envName                | GitLab environment name. | `nil` |
@@ -76,6 +76,7 @@
 | ingress.modSecurity.secRuleEngine | Configuration for [ModSecurity's rule engine](https://github.com/SpiderLabs/ModSecurity/wiki/Reference-Manual-(v2.x)#SecRuleEngine) | `DetectionOnly` |
 | ingress.modSecurity.secRules | Configuration for custom [ModSecurity's rules](https://github.com/SpiderLabs/ModSecurity/wiki/Reference-Manual-(v2.x)#secrule) | `nil` |
 | ingress.annotations           | Ingress annotations | See [`_ingress-annotations.yaml`](./templates/_ingress-annotations.yaml) |
+| livenessProbe.enabled         | If true, enables liveness probe. | `/`                                |
 | livenessProbe.path            | Path to access on the HTTP server on periodic probe of container liveness. | `/`                                |
 | livenessProbe.scheme          | Scheme to access the HTTP server (HTTP or HTTPS). | `HTTP`                                |
 | livenessProbe.httpHeaders       | List of additional custom headers to send on the server | `[]`                                |
@@ -85,6 +86,7 @@
 | livenessProbe.timeoutSeconds  | # of seconds after which the liveness probe times out. | `15`                               |
 | livenessProbe.probeType       | Type of [liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes) to use. | `httpGet`
 | livenessProbe.command         | Commands for use with probe type 'exec'. | `{}`
+| readinessProbe.enabled         | If true, enables readiness probe. | `/`                                |
 | readinessProbe.path           | Path to access on the HTTP server on periodic probe of container readiness. | `/`                                |
 | readinessProbe.scheme         | Scheme to access the HTTP server (HTTP or HTTPS). | `HTTP`                                |
 | readinessProbe.httpHeaders      | List of additional custom headers to send on the server | `[]`                                |
@@ -114,9 +116,6 @@
 | prometheus.metrics            | Annotates the service for prometheus auto-discovery. Also denies access to the `/metrics` endpoint from external addresses with Ingress. | `false` |
 | networkPolicy.enabled(**DEPRECATED**)         | Enable container network policy | `false` |
 | networkPolicy.spec(**DEPRECATED**)            | [Network policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/) definition | `{ podSelector: { matchLabels: {} }, ingress: [{ from: [{ podSelector: { matchLabels: {} } }, { namespaceSelector: { matchLabels: { app.gitlab.com/managed_by: gitlab } } }] }] }` |
-| ciliumNetworkPolicy.enabled(**DEPRECATED**)         | Enable container cilium network policy | `false` |
-| ciliumNetworkPolicy.alerts.enabled(**DEPRECATED**)         | Enable alert generation for container cilium network policy | `false` |
-| ciliumNetworkPolicy.spec(**DEPRECATED**)            | [Cilium network policy](https://docs.cilium.io/en/v1.8/concepts/kubernetes/policy/#ciliumnetworkpolicy/) definition | `{ endpointSelector: {}, ingress: [{ fromEndpoints: [{ matchLabels: { app.gitlab.com/managed_by: gitlab } }] }] }` |
 | persistence.enabled           | Allow a [persistent volume claim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC) to be mounted as a volume. <br/> **Warning:** Auto-created PVCs are deleted any time `persistence.enabled` is set to `false`. | `false` |
 | persistence.volumes[].name         | The name of the volume. | `data` |
 | persistence.volumes[].mount.path         | The mount path in the deployment containers. | `/pvc-mount` |
@@ -137,4 +136,5 @@
 | cronjob.job.livenessProbe           | If defined, enables livenessProbe in the cronjob. If not defined, it uses top-level `livenessProbe` setting to the job. (To see details about the default probes check values.yaml) | |
 | cronjob.job.readinessProbe           | If defined, enables readinessProbe in the cronjob. If not defined, it uses top-level `readinessProbe` setting to the job. (To see details about the default probes check values.yaml) | |
 | cronjob.activeDeadlineSeconds           | Alternative to terminate a Job: Once a Job reaches `activeDeadlineSeconds` value, all of its running Pods are terminated and the Job status will become `type: Failed` with `reason: DeadlineExceeded` | `nil` |
+| customResources | This field allows to add custom resources to your Deployment. | `[]` |
 
