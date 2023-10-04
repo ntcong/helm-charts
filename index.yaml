@@ -11,6 +11,15 @@ entries:
     - https://github.com/ntcong/helm-charts/releases/download/auto-deploy-app-23.10.4/auto-deploy-app-23.10.4.tgz
     version: 23.10.4
   - apiVersion: v1
+    created: "2023-10-04T03:19:13.745632573Z"
+    description: GitLab's Auto-deploy Helm Chart
+    digest: 11c5a9fa8313ea3820e9ba68258e70ae98b7ab39697d451c1246ab9236673fd8
+    icon: https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo-square.png
+    name: auto-deploy-app
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/auto-deploy-app-2.40.1/auto-deploy-app-2.40.1.tgz
+    version: 2.40.1
+  - apiVersion: v1
     created: "2023-09-25T11:15:42.76550625Z"
     description: GitLab's Auto-deploy Helm Chart
     digest: ef7604d5eedc85dd6b52249e9f2521cb1cca2cb6b8c92cb7c97d5b144f774be4
@@ -19,4 +28,4 @@ entries:
     urls:
     - https://github.com/ntcong/auto-deploy-app/releases/download/auto-deploy-app-2.40.0/auto-deploy-app-2.40.0.tgz
     version: 2.40.0
-generated: "2023-10-04T03:14:29.806001968Z"
+generated: "2023-10-04T03:19:13.745648374Z"
