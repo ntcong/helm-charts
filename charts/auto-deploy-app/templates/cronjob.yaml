@@ -119,7 +119,7 @@ items:
                     name: app-postgres
                     key: privateIP
               {{- end }}
-              {{- if .Values.application.externalDatabase }}
+              {{- if $.Values.application.externalDatabase }}
               - name: DATABASE_USER
                 valueFrom:
                   secretKeyRef:
