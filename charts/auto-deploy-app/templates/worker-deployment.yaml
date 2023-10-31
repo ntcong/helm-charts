@@ -17,12 +17,15 @@ items:
       release: {{ $.Release.Name }}
       heritage: {{ $.Release.Service }}
   spec:
+    revisionHistoryLimit: 3
     selector:
       matchLabels:
         track: "{{ $.Values.application.track }}"
         tier: worker
         release: {{ $.Release.Name }}
+{{- if $workerConfig.replicaCount }}
     replicas: {{ $workerConfig.replicaCount }}
+{{- end }}
   {{- if $workerConfig.strategyType }}
     strategy:
       type: {{ $workerConfig.strategyType | quote }}
@@ -130,6 +133,30 @@ items:
 {{- if $.Values.application.database_url }}
           - name: DATABASE_URL
             value: {{ $.Values.application.database_url | quote }}
+{{- end }}
+{{- if $.Values.application.externalRedis }}
+{{- if $.Values.application.externalRedis.secret }}
+          - name: REDIS_PASSWD
+            valueFrom:
+              secretKeyRef:
+                name: {{ $.Values.application.externalRedis.secret | quote }}
+                key: password
+{{- if $.Values.application.externalRedis.sentinel }}
+          - name: REDIS_URL
+            value: "sentinel://:$(REDIS_PASSWD)@{{ $.Values.application.externalRedis.service }}/{{ $.Values.application.externalRedis.name }}"
+{{- else }}
+          - name: REDIS_URL
+            value: "redis://:$(REDIS_PASSWD)@{{ $.Values.application.externalRedis.service }}/{{ $.Values.application.externalRedis.name }}"
+{{- end }}
+{{- else }}
+{{- if $.Values.application.externalRedis.sentinel }}
+          - name: REDIS_URL
+            value: "sentinel://{{ $.Values.application.externalRedis.service }}/{{ $.Values.application.externalRedis.name }}"
+{{- else }}
+          - name: REDIS_URL
+            value: "redis://{{ $.Values.application.externalRedis.service }}/{{ $.Values.application.externalRedis.name }}"
+{{- end }}
+{{- end }}
 {{- end }}
           - name: GITLAB_ENVIRONMENT_NAME
             value: {{ $.Values.gitlab.envName | quote }}

@@ -1,7 +1,7 @@
 # Default values for chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-replicaCount: 1
+# replicaCount: 1
 strategyType:
 # `serviceAccountName` is deprecated in favor of `serviceAccount.name`
 serviceAccountName:
@@ -39,8 +39,8 @@ topologySpreadConstraints: []
 application:
   track: stable
   tier: web
+  firstRun: false
   migrateCommand:
-  initializeCommand:
   secretName:
   secretChecksum:
   # You can omit `DATABASE_URL` variable injection into your deployment containers,
@@ -50,6 +50,11 @@ application:
   #   secret: "testsecret"
   #   service: testservice
   #   name: testname
+  # externalRedis:
+  #   secret:
+  #   service: service
+  #   sentinel: false
+  #   name: mymaster
 hpa:
   enabled: false
   minReplicas: 1
@@ -140,16 +145,10 @@ startupProbe:
 #  - dns1.DOMAIN1
 #  - dns2.DOMAIN2
 
-postgresql:
-  managed: false
-  managedClassSelector:
-    #   matchLabels:
-    #     stack: gitlab (This is an example. The labels should match the labels on the CloudSQLInstanceClass)
-
 resources:
-#  limits:
-#    cpu: 100m
-#    memory: 128Mi
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
   requests: {}
 #    cpu: 100m
 #    memory: 128Mi
@@ -171,12 +170,12 @@ networkPolicy:
     podSelector:
       matchLabels: {}
     ingress:
-    - from:
-      - podSelector:
-          matchLabels: {}
-      - namespaceSelector:
-          matchLabels:
-            app.gitlab.com/managed_by: gitlab
+      - from:
+          - podSelector:
+              matchLabels: {}
+          - namespaceSelector:
+              matchLabels:
+                app.gitlab.com/managed_by: gitlab
 
 serviceAccount:
   name:
@@ -223,7 +222,8 @@ extraEnv: []
 # - name:  ENV_VAR
 #   value: ENV_VAL
 
-workers: {}
+workers:
+  {}
   # worker:
   #   replicaCount: 1
   #   terminationGracePeriodSeconds: 60
@@ -273,7 +273,8 @@ workers: {}
   #   extraVolumeMounts: []
   #   extraEnvFrom: []
 
-cronjobs: {}
+cronjobs:
+  {}
   # job:
   #   schedule: "*/2 * * * *"
   #   image:
@@ -327,3 +328,15 @@ cronjobs: {}
 #           namespace: "default"
 #           kind: "TLSOptions"
 #           minVersion: "VersionTLS12"
+postgresql:
+  enabled: false
+  auth:
+    username: user
+    password: password
+    database: reviewdb
+redis:
+  enabled: false
+  auth:
+    enabled: false
+  replica:
+    replicaCount: 0

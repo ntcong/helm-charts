@@ -1,3 +1,4 @@
+{{- if .Values.application.firstRun -}}
 {{- if .Values.application.migrateCommand -}}
 apiVersion: batch/v1
 kind: Job
@@ -52,4 +53,5 @@ spec:
           value: {{ .Values.gitlab.envName | quote }}
         - name: GITLAB_ENVIRONMENT_URL
           value: {{ .Values.gitlab.envURL | quote }}
+{{- end -}}
 {{- end -}}
