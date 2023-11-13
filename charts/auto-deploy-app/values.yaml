@@ -39,7 +39,7 @@ topologySpreadConstraints: []
 application:
   track: stable
   tier: web
-  firstRun: true
+  firstRun: false
   migrateCommand:
   secretName:
   secretChecksum:

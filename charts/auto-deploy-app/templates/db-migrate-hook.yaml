@@ -1,4 +1,4 @@
-{{- if .Values.application.firstRun -}}
+{{- if not .Values.application.firstRun -}}
 {{- if .Values.application.migrateCommand -}}
 apiVersion: batch/v1
 kind: Job
