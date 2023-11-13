@@ -2,6 +2,24 @@ apiVersion: v1
 entries:
   auto-deploy-app:
   - apiVersion: v2
+    created: "2023-11-13T07:29:52.880664309Z"
+    dependencies:
+    - condition: postgresql.enabled,auto-deploy-app.postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 13.1.5
+    - condition: redis.enabled,auto-deploy-app.redis.enabled
+      name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 18.1.6
+    description: GitLab's Auto-deploy Helm Chart
+    digest: fe17ada38c4b3dd290971bdb4c01408a995d569017b522ad5c7d23745c4b6ab2
+    icon: https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo-square.png
+    name: auto-deploy-app
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/auto-deploy-app-2.40.10/auto-deploy-app-2.40.10.tgz
+    version: 2.40.10
+  - apiVersion: v2
     created: "2023-11-10T03:11:30.338706917Z"
     dependencies:
     - condition: postgresql.enabled,auto-deploy-app.postgresql.enabled
@@ -109,4 +127,4 @@ entries:
     urls:
     - https://github.com/ntcong/auto-deploy-app/releases/download/auto-deploy-app-2.40.0/auto-deploy-app-2.40.0.tgz
     version: 2.40.0
-generated: "2023-11-10T03:11:30.338752672Z"
+generated: "2023-11-13T07:29:52.880712369Z"
