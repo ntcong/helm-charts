@@ -1,0 +1,37 @@
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8083
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  media-ingest:
+    enabled: false
+    path: /ingest/path
+    globalMounts:
+      - path: /cwa-book-ingest
+  library:
+    enabled: false
+    path: /library/path
+    globalMounts:
+      - path: /calibre-library
+ingress:
+  main:
+    enabled: false
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: crocodilestick/calibre-web-automated
+          tag: V3.0.4
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
+          PUID: 1000
+          PGID: 1000

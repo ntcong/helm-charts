@@ -1,0 +1,16 @@
+apiVersion: v2
+name: calibre-automated
+description: Calibre Web Automated deployment
+type: application
+version: 1.0.0
+keywords:
+  - calibre
+sources:
+  - https://github.com/crocodilestick/Calibre-Web-Automated
+maintainers:
+  - name: ntcong
+    email: ntcong.it@gmail.com
+dependencies:
+  - name: common
+    repository: https://bjw-s.github.io/helm-charts/
+    version: 3.7.3
