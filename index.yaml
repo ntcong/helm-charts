@@ -127,6 +127,27 @@ entries:
     urls:
     - https://github.com/ntcong/auto-deploy-app/releases/download/auto-deploy-app-2.40.0/auto-deploy-app-2.40.0.tgz
     version: 2.40.0
+  calibre-automated:
+  - apiVersion: v2
+    created: "2025-03-28T16:24:20.611527141Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s.github.io/helm-charts/
+      version: 3.7.3
+    description: Calibre Web Automated deployment
+    digest: 3eb4cc8b522a00c0159ad0b2ef5cd10f8407ed85989a0b568bc3060f5f2bd3dc
+    keywords:
+    - calibre
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: calibre-automated
+    sources:
+    - https://github.com/crocodilestick/Calibre-Web-Automated
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/calibre-automated-1.0.0/calibre-automated-1.0.0.tgz
+    version: 1.0.0
   servarr:
   - apiVersion: v2
     created: "2025-03-28T15:56:33.544066443Z"
@@ -155,4 +176,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/servarr-1.0.0/servarr-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-28T15:56:33.544099014Z"
+generated: "2025-03-28T16:24:20.611559722Z"
