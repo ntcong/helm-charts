@@ -2,18 +2,20 @@ apiVersion: v2
 name: servarr
 description: One chart to rule all Servarr
 type: application
-version: 1.0.0
+version: 1.1.0
 keywords:
   - sonarr
   - servarr
   - radarr
   - overseerr
   - bazarr
+  - prowlarr
 sources:
   - https://github.com/Sonarr/Sonarr
   - https://github.com/Radarr/Radarr
   - https://github.com/sct/overseerr
   - https://github.com/morpheus65535/bazarr
+  - https://github.com/Prowlarr/Prowlarr
 maintainers:
   - name: ntcong
     email: ntcong.it@gmail.com
