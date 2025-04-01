@@ -1,0 +1,16 @@
+apiVersion: v2
+name: spoolman
+description: Spoolman deployment
+type: application
+version: 1.0.0
+keywords:
+  - spoolman
+sources:
+  - https://github.com/Donkie/spoolman
+maintainers:
+  - name: ntcong
+    email: ntcong.it@gmail.com
+dependencies:
+  - name: common
+    repository: https://bjw-s.github.io/helm-charts/
+    version: 3.7.3
