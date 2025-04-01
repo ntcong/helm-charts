@@ -205,4 +205,25 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/servarr-1.0.0/servarr-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-28T16:50:37.114942744Z"
+  spoolman:
+  - apiVersion: v2
+    created: "2025-04-01T17:04:44.859327362Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s.github.io/helm-charts/
+      version: 3.7.3
+    description: Spoolman deployment
+    digest: d25a92237c377ea26ec9c9093623932e2e4a95bbfd43b0e5125cbaf2bf0e0d4f
+    keywords:
+    - spoolman
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: spoolman
+    sources:
+    - https://github.com/Donkie/spoolman
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-04-01T17:04:44.859366846Z"
