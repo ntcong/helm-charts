@@ -1,3 +1,7 @@
+defaultPodOptions:
+  securityContext:
+    fsGroup: 65534
+
 service:
   main:
     controller: main
@@ -10,6 +14,7 @@ persistence:
     storageClass: longhorn
     accessMode: ReadWriteOnce
     size: 1Gi
+    retain: true
     globalMounts:
       - path: /home/app/.local/share/spoolman
 ingress:

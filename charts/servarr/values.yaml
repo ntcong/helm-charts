@@ -34,6 +34,7 @@ persistence:
     storageClass: longhorn
     accessMode: ReadWriteOnce
     size: 1Gi
+    retain: true
     advancedMounts:
       sonarr:
         main:
@@ -43,6 +44,7 @@ persistence:
     storageClass: longhorn
     accessMode: ReadWriteOnce
     size: 1Gi
+    retain: true
     advancedMounts:
       radarr:
         main:
@@ -52,6 +54,7 @@ persistence:
     storageClass: longhorn
     accessMode: ReadWriteOnce
     size: 1Gi
+    retain: true
     advancedMounts:
       bazarr:
         main:
@@ -61,6 +64,7 @@ persistence:
     storageClass: longhorn
     accessMode: ReadWriteOnce
     size: 2Gi
+    retain: true
     advancedMounts:
       overseer:
         main:
@@ -70,6 +74,7 @@ persistence:
     storageClass: longhorn
     accessMode: ReadWriteOnce
     size: 1Gi
+    retain: true
     advancedMounts:
       prowlarr:
         main:
