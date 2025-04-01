@@ -2,7 +2,7 @@ apiVersion: v2
 name: calibre-automated
 description: Calibre Web Automated deployment
 type: application
-version: 1.0.0
+version: 1.0.1
 keywords:
   - calibre
 sources:
