@@ -1,0 +1,16 @@
+apiVersion: v2
+name: qbittorrent
+description: qbittorrent deployment
+type: application
+version: 1.0.0
+keywords:
+  - qbittorrent
+sources:
+  - https://github.com/qbittorrent/qBittorrent
+maintainers:
+  - name: ntcong
+    email: ntcong.it@gmail.com
+dependencies:
+  - name: common
+    repository: https://bjw-s.github.io/helm-charts/
+    version: 3.7.3

@@ -1,0 +1,41 @@
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8080
+  bittorrent:
+    controller: main
+    enabled: true
+    ports:
+      bittorrent:
+        enabled: true
+        port: 6881
+        protocol: TCP
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    retain: true
+  media:
+    enabled: false
+    # type: nfs
+    # server: 192.168.1.2
+    # path: /volume1/NAS
+    # globalMounts:
+    #   - path: /mnt/NAS
+ingress:
+  main:
+    enabled: false
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: ghcr.io/linuxserver/qbittorrent
+          tag: 5.0.4
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
