@@ -23,6 +23,11 @@ service:
     ports:
       http:
         port: 6767
+  tautulli:
+    controller: tautulli
+    ports:
+      http:
+        port: 8181
   prowlarr:
     controller: prowlarr
     ports:
@@ -64,6 +69,16 @@ persistence:
       bazarr:
         main:
           - path: /config
+  config-tautulli:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    retain: true
+    advancedMounts:
+      tautulli:
+        main:
+          - path: /config
   config-overseer:
     enabled: true
     storageClass: longhorn
@@ -99,6 +114,8 @@ ingress:
   prowlarr:
     enabled: false
   flaresolverr:
+    enabled: false
+  tautulli:
     enabled: false
 controllers:
   sonarr:
@@ -168,6 +185,17 @@ controllers:
         image:
           repository: linuxserver/bazarr
           tag: 1.5.1
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
+          PUID: 1000
+          PGID: 1000
+  tautulli:
+    containers:
+      main:
+        image:
+          repository: ghcr.io/tautulli/tautulli
+          tag: v2.15.1
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
