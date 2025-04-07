@@ -28,6 +28,11 @@ service:
     ports:
       http:
         port: 9696
+  flaresolverr:
+    controller: flaresolverr
+    ports:
+      http:
+        port: 8191
 persistence:
   config-sonarr:
     enabled: true
@@ -92,6 +97,8 @@ ingress:
   overseer:
     enabled: false
   prowlarr:
+    enabled: false
+  flaresolverr:
     enabled: false
 controllers:
   sonarr:
@@ -166,6 +173,18 @@ controllers:
           TZ: UTC
           PUID: 1000
           PGID: 1000
+  flaresolverr:
+    containers:
+      main:
+        image:
+          repository: ghcr.io/flaresolverr/flaresolverr
+          tag: v3.3.21
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
+          LOG_LEVEL: info
+          LOG_HTML: false
+          CAPTCHA_SOLVER: none
   prowlarr:
     containers:
       main:
