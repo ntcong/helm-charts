@@ -168,6 +168,27 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/calibre-automated-1.0.0/calibre-automated-1.0.0.tgz
     version: 1.0.0
+  qbittorrent:
+  - apiVersion: v2
+    created: "2025-04-07T05:07:31.802945928Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s.github.io/helm-charts/
+      version: 3.7.3
+    description: qbittorrent deployment
+    digest: 8653b883628483c3e6239a81a6c2e43b1c347aa651866a2d0a8cfe0d285d4c20
+    keywords:
+    - qbittorrent
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: qbittorrent
+    sources:
+    - https://github.com/qbittorrent/qBittorrent
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/qbittorrent-1.0.0/qbittorrent-1.0.0.tgz
+    version: 1.0.0
   servarr:
   - apiVersion: v2
     created: "2025-04-01T18:01:26.405616781Z"
@@ -295,4 +316,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2025-04-01T18:01:26.521297262Z"
+generated: "2025-04-07T05:07:31.802976045Z"
