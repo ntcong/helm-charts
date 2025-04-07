@@ -191,6 +191,35 @@ entries:
     version: 1.0.0
   servarr:
   - apiVersion: v2
+    created: "2025-04-07T17:55:25.299457501Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s.github.io/helm-charts/
+      version: 3.7.3
+    description: One chart to rule all Servarr
+    digest: 7878587769b13145422b78d153db28c3d021c8f31ae51a598dcd191ac0941fbb
+    keywords:
+    - sonarr
+    - servarr
+    - radarr
+    - overseerr
+    - bazarr
+    - prowlarr
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: servarr
+    sources:
+    - https://github.com/Sonarr/Sonarr
+    - https://github.com/Radarr/Radarr
+    - https://github.com/sct/overseerr
+    - https://github.com/morpheus65535/bazarr
+    - https://github.com/Prowlarr/Prowlarr
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/servarr-1.2.0/servarr-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
     created: "2025-04-01T18:01:26.405616781Z"
     dependencies:
     - name: common
@@ -316,4 +345,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2025-04-07T05:07:31.802976045Z"
+generated: "2025-04-07T17:55:25.299503578Z"
