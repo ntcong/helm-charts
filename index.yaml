@@ -189,6 +189,27 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/calibre-automated-1.0.0/calibre-automated-1.0.0.tgz
     version: 1.0.0
+  kometa:
+  - apiVersion: v2
+    created: "2025-04-09T17:44:30.04661689Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s.github.io/helm-charts/
+      version: 3.7.3
+    description: kometa deployment
+    digest: 05a8c2caca88ed61904195ebb7f5cda0b015c58252983ae5e3bff44a26ebb6ad
+    keywords:
+    - kometa
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: kometa
+    sources:
+    - https://github.com/Kometa-Team/Kometa
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/kometa-1.0.0/kometa-1.0.0.tgz
+    version: 1.0.0
   qbittorrent:
   - apiVersion: v2
     created: "2025-04-07T05:07:31.802945928Z"
@@ -428,4 +449,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2025-04-09T17:06:55.944238595Z"
+generated: "2025-04-09T17:44:30.046661954Z"
