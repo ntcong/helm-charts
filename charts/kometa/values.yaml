@@ -1,0 +1,31 @@
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    retain: true
+  config-xml:
+    enabled: true
+    type: configMap
+    name: kometa-config
+ingress:
+  main:
+    enabled: false
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: kometateam/kometa
+          tag: v2.2.0
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
+          PUID: 1000
+          PGID: 1000
+          KOMETA_CONFIG: /config/config.yml
+          KOMETA_OVERLAYS_ONLY: true
+          KOMETA_NO_MISSING: False
+          KOMETA_RUN: false
+          KOMETA_TIME: 03:00
