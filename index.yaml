@@ -1,5 +1,26 @@
 apiVersion: v1
 entries:
+  adguardhome-sync:
+  - apiVersion: v2
+    created: "2025-04-09T17:06:55.944192979Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s.github.io/helm-charts/
+      version: 3.7.3
+    description: AdGuardHome Sync
+    digest: 705eff4602941acfc0b90274caa574b8afaf094d0e6c5f2b247c12a305d7cdcf
+    keywords:
+    - adguardhome
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: adguardhome-sync
+    sources:
+    - https://github.com/bakito/adguardhome-sync
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/adguardhome-sync-1.0.0/adguardhome-sync-1.0.0.tgz
+    version: 1.0.0
   auto-deploy-app:
   - apiVersion: v2
     created: "2023-11-13T07:29:52.880664309Z"
@@ -407,4 +428,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2025-04-09T11:21:25.98014253Z"
+generated: "2025-04-09T17:06:55.944238595Z"
