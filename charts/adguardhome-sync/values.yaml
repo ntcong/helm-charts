@@ -1,0 +1,36 @@
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8080
+ingress:
+  main:
+    enabled: false
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: ghcr.io/bakito/adguardhome-sync
+          tag: v0.7.2
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
+          LOG_LEVEL: "info"
+          ORIGIN_URL: ""
+          ORIGIN_USERNAME: ""
+          ORIGIN_PASSWORD: ""
+
+          REPLICA1_URL: ""
+          REPLICA1_USERNAME: ""
+          REPLICA1_PASSWORD: ""
+
+          CRON: "0 */1 * * *" # run every 2 hours
+          RUN_ON_START: "true"
+
+          # Configure the sync API server, disabled if api port is 0
+          API_PORT: 8080
+          API_DARK_MODE: "true"
+          API_USERNAME: ""
+          API_PASSWORD: ""
