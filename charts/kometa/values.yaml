@@ -21,7 +21,6 @@ controllers:
           PUID: 1000
           PGID: 1000
           KOMETA_CONFIG: /config/config.yml
-          KOMETA_OVERLAYS_ONLY: true
           KOMETA_NO_MISSING: False
           KOMETA_RUN: false
-          KOMETA_TIME: 03:00
+          KOMETA_TIME: 02:00
