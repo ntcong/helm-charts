@@ -191,6 +191,26 @@ entries:
     version: 1.0.0
   kometa:
   - apiVersion: v2
+    created: "2025-04-09T18:10:25.372461979Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s.github.io/helm-charts/
+      version: 3.7.3
+    description: kometa deployment
+    digest: b2b56936bc329326e939d36a9d4ba6dd6f6a109e613a69573c6fe1cb8dff6211
+    keywords:
+    - kometa
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: kometa
+    sources:
+    - https://github.com/Kometa-Team/Kometa
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/kometa-1.0.2/kometa-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2025-04-09T18:08:49.126636679Z"
     dependencies:
     - name: common
@@ -469,4 +489,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2025-04-09T18:08:49.126700088Z"
+generated: "2025-04-09T18:10:25.372498488Z"
