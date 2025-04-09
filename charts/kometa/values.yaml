@@ -5,10 +5,6 @@ persistence:
     accessMode: ReadWriteOnce
     size: 10Gi
     retain: true
-  config-xml:
-    enabled: true
-    type: configMap
-    name: kometa-config
 ingress:
   main:
     enabled: false
