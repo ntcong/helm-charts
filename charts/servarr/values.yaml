@@ -218,7 +218,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/home-operations/prowlarr
-          tag: 1.33.2.5002
+          tag: 1.34.0.5016
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
