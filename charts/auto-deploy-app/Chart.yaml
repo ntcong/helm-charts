@@ -6,7 +6,7 @@ icon: https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo-square.p
 
 dependencies:
   - name: postgresql
-    version: "13.1.5"
+    version: "13.4.6"
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled,auto-deploy-app.postgresql.enabled
   - name: redis
