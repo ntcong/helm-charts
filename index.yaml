@@ -23,6 +23,24 @@ entries:
     version: 1.0.0
   auto-deploy-app:
   - apiVersion: v2
+    created: "2025-05-10T18:19:48.385312308Z"
+    dependencies:
+    - condition: postgresql.enabled,auto-deploy-app.postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.7.2
+    - condition: redis.enabled,auto-deploy-app.redis.enabled
+      name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 21.0.2
+    description: GitLab's Auto-deploy Helm Chart
+    digest: 868d3f54546504248031057f8c8f9bbfaf338e3141745334840002a303e66f50
+    icon: https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo-square.png
+    name: auto-deploy-app
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/auto-deploy-app-2.40.11/auto-deploy-app-2.40.11.tgz
+    version: 2.40.11
+  - apiVersion: v2
     created: "2023-11-13T07:29:52.880664309Z"
     dependencies:
     - condition: postgresql.enabled,auto-deploy-app.postgresql.enabled
@@ -551,4 +569,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2025-04-15T05:20:07.732863582Z"
+generated: "2025-05-10T18:19:48.385374233Z"
