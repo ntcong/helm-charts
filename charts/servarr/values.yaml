@@ -149,7 +149,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/home-operations/radarr
-          tag: 5.22.2.9862
+          tag: 5.23.1.9914
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
