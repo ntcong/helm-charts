@@ -2,7 +2,7 @@ apiVersion: v2
 name: servarr
 description: One chart to rule all Servarr
 type: application
-version: 1.4.3
+version: 1.4.4
 keywords:
   - sonarr
   - servarr
