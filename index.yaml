@@ -270,6 +270,26 @@ entries:
     version: 1.0.0
   qbittorrent:
   - apiVersion: v2
+    created: "2025-06-27T16:40:31.66576715Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: qbittorrent deployment
+    digest: a5dc1dfed2d9e83c369ba8ad4f0678fd4aaef5991939ef624b8289a07426c0af
+    keywords:
+    - qbittorrent
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: qbittorrent
+    sources:
+    - https://github.com/qbittorrent/qBittorrent
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/qbittorrent-1.1.1/qbittorrent-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
     created: "2025-05-10T18:23:46.642754192Z"
     dependencies:
     - name: common
@@ -651,4 +671,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-27T16:38:17.737917031Z"
+generated: "2025-06-27T16:40:31.665839907Z"
