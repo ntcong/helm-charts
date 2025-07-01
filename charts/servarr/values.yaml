@@ -38,6 +38,11 @@ service:
     ports:
       http:
         port: 9705
+  cleanuparr:
+    controller: cleanuparr
+    ports:
+      http:
+        port: 11011
   flaresolverr:
     controller: flaresolverr
     ports:
@@ -84,6 +89,16 @@ persistence:
       huntarr:
         main:
           - path: /config
+  config-cleanuparr:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    retain: true
+    advancedMounts:
+      cleanuparr:
+        main:
+          - path: /config
   config-tautulli:
     enabled: true
     storageClass: longhorn
@@ -123,6 +138,8 @@ ingress:
   radarr:
     enabled: false
   huntarr:
+    enabled: false
+  cleanuparr:
     enabled: false
   bazarr:
     enabled: false
@@ -216,6 +233,18 @@ controllers:
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
+  cleanuparr:
+    containers:
+      main:
+        image:
+          repository: ghcr.io/cleanuparr/cleanuparr
+          tag: 2.0.10
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
+          PORT: 11011
+          PUID: 1000
+          PGID: 1000
   tautulli:
     containers:
       main:
