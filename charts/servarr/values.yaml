@@ -33,6 +33,11 @@ service:
     ports:
       http:
         port: 9696
+  huntarr:
+    controller: huntarr
+    ports:
+      http:
+        port: 9705
   flaresolverr:
     controller: flaresolverr
     ports:
@@ -67,6 +72,16 @@ persistence:
     retain: true
     advancedMounts:
       bazarr:
+        main:
+          - path: /config
+  config-huntarr:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    retain: true
+    advancedMounts:
+      huntarr:
         main:
           - path: /config
   config-tautulli:
@@ -106,6 +121,8 @@ ingress:
   sonarr:
     enabled: false
   radarr:
+    enabled: false
+  huntarr:
     enabled: false
   bazarr:
     enabled: false
@@ -190,6 +207,15 @@ controllers:
           TZ: UTC
           PUID: 1000
           PGID: 1000
+  huntarr:
+    containers:
+      main:
+        image:
+          repository: huntarr/huntarr
+          tag: 8.1.11
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
   tautulli:
     containers:
       main:
