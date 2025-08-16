@@ -1,12 +1,12 @@
 apiVersion: v2
 description: GitLab's Auto-deploy Helm Chart
 name: auto-deploy-app
-version: 2.40.11
+version: 2.40.12
 icon: https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo-square.png
 
 dependencies:
   - name: postgresql
-    version: "16.7.2"
+    version: "16.7.26"
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled,auto-deploy-app.postgresql.enabled
   - name: redis
