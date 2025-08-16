@@ -238,7 +238,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/cleanuparr/cleanuparr
-          tag: 2.0.10
+          tag: 2.1.6
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
