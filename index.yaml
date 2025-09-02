@@ -226,6 +226,26 @@ entries:
     version: 2.40.0
   calibre-automated:
   - apiVersion: v2
+    created: "2025-09-02T10:23:55.346853906Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Calibre Web Automated deployment
+    digest: 2e9e4cd77e9e0875296117847deaab3946d1d6c016a3951adac5fac571a29637
+    keywords:
+    - calibre
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: calibre-automated
+    sources:
+    - https://github.com/crocodilestick/Calibre-Web-Automated
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/calibre-automated-1.0.2/calibre-automated-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2025-04-01T18:01:26.282329723Z"
     dependencies:
     - name: common
@@ -872,4 +892,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-16T10:19:44.779597055Z"
+generated: "2025-09-02T10:23:55.346960086Z"
