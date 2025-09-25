@@ -229,7 +229,7 @@ controllers:
       main:
         image:
           repository: huntarr/huntarr
-          tag: 8.1.15
+          tag: 8.2.10
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
