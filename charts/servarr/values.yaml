@@ -183,7 +183,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/home-operations/radarr
-          tag: 5.27.3.10153
+          tag: 6.0.3.10276
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -218,7 +218,7 @@ controllers:
       main:
         image:
           repository: linuxserver/bazarr
-          tag: 1.5.2
+          tag: 1.5.3
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -229,7 +229,7 @@ controllers:
       main:
         image:
           repository: huntarr/huntarr
-          tag: 8.1.15
+          tag: 8.2.10
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -238,7 +238,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/cleanuparr/cleanuparr
-          tag: 2.1.6
+          tag: 2.4.2
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -250,7 +250,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/tautulli/tautulli
-          tag: v2.15.2
+          tag: v2.16.0
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -261,7 +261,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/flaresolverr/flaresolverr
-          tag: v3.3.25
+          tag: v3.4.3
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -272,8 +272,8 @@ controllers:
     containers:
       main:
         image:
-          repository: ghcr.io/home-operations/prowlarr
-          tag: 2.0.3.5130
+          repository: linuxserver/prowlarr
+          tag: 2.1.5.5216
           pullPolicy: IfNotPresent
         env:
           TZ: UTC

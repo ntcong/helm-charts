@@ -2,7 +2,7 @@ apiVersion: v2
 name: kometa
 description: kometa deployment
 type: application
-version: 1.0.3
+version: 1.0.4
 keywords:
   - kometa
 sources:
