@@ -1,0 +1,16 @@
+apiVersion: v2
+name: komga
+description: Komga is a comics/manga server that can be used to serve your comics/manga library to various clients.
+type: application
+version: 1.0.0
+keywords:
+  - komga
+sources:
+  - https://github.com/gotson/komga
+maintainers:
+  - name: ntcong
+    email: ntcong.it@gmail.com
+dependencies:
+  - name: common
+    repository: https://bjw-s-labs.github.io/helm-charts/
+    version: 4.5.0

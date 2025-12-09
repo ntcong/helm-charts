@@ -1,0 +1,33 @@
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 25600
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    retain: true
+    size: 2Gi
+  data:
+    enabled: false
+    path: /data/path
+    globalMounts:
+      - path: /data
+ingress:
+  main:
+    enabled: false
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: gotson/komga
+          tag: 1.23.6
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
+          PUID: 1000
+          PGID: 1000
