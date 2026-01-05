@@ -35,7 +35,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/linuxserver/qbittorrent
-          tag: 5.1.2
+          tag: 5.1.4
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
