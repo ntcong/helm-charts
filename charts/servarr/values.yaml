@@ -218,7 +218,7 @@ controllers:
       main:
         image:
           repository: linuxserver/bazarr
-          tag: 1.5.4
+          tag: 1.5.5
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
