@@ -2,7 +2,7 @@ apiVersion: v2
 name: komga
 description: Komga is a comics/manga server that can be used to serve your comics/manga library to various clients.
 type: application
-version: 1.0.0
+version: 1.0.1
 keywords:
   - komga
 sources:

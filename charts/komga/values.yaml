@@ -25,7 +25,7 @@ controllers:
       main:
         image:
           repository: gotson/komga
-          tag: 1.23.6
+          tag: 1.24.1
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
