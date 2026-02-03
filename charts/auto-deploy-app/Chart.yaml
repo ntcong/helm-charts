@@ -10,6 +10,6 @@ dependencies:
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled,auto-deploy-app.postgresql.enabled
   - name: redis
-    version: "21.2.14"
+    version: "24.1.3"
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled,auto-deploy-app.redis.enabled
