@@ -208,7 +208,7 @@ controllers:
     containers:
       main:
         image:
-          repository: seerr-team/seerr
+          repository: ghcr.io/seerr-team/seerr
           tag: v3.1.0
           pullPolicy: IfNotPresent
         env:
