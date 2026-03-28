@@ -252,7 +252,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/tautulli/tautulli
-          tag: v2.16.0
+          tag: v2.17.0
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
