@@ -30,7 +30,7 @@ controllers:
       main:
         image:
           repository: crocodilestick/calibre-web-automated
-          tag: V4.0.4
+          tag: v4.0.6
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
