@@ -81,6 +81,27 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/adguardhome-sync-1.0.0/adguardhome-sync-1.0.0.tgz
     version: 1.0.0
+  aerofoil:
+  - apiVersion: v2
+    created: "2026-05-18T16:03:07.606586563Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Aerofoil - Game server browser and launcher
+    digest: e41f9e8dd0c63f2b13969145515fe81a1ba2bc14460231827e4f378bddcf7e1a
+    keywords:
+    - aerofoil
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: aerofoil
+    sources:
+    - https://github.com/luketanti/aerofoil
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/aerofoil-1.0.0/aerofoil-1.0.0.tgz
+    version: 1.0.0
   auto-deploy-app:
   - apiVersion: v2
     created: "2025-08-16T10:00:30.402437544Z"
@@ -1210,4 +1231,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2026-03-06T04:41:25.95391002Z"
+generated: "2026-05-18T16:03:07.606714805Z"
