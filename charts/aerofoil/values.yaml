@@ -1,0 +1,58 @@
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8465
+ingress:
+  main:
+    enabled: false
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: luketanti/aerofoil
+          tag: "2.5.0"
+          pullPolicy: IfNotPresent
+        env:
+          TZ: UTC
+          # PUID: 1000
+          # PGID: 1000
+          # USER_ADMIN_NAME: admin
+          # USER_ADMIN_PASSWORD: ""
+          # USER_GUEST_NAME: guest
+          # USER_GUEST_PASSWORD: ""
+          # SHOP_SECTIONS_CACHE_TTL_S: none
+          # MEDIA_INDEX_TTL_S: none
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    retain: true
+    advancedMounts:
+      main:
+        main:
+          - path: /app/config
+  data:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    retain: true
+    advancedMounts:
+      main:
+        main:
+          - path: /app/data
+  games:
+    enabled: false
+    # type: nfs
+    # server: 192.168.1.2
+    # path: /volume1/games
+    # advancedMounts:
+    #   main:
+    #     main:
+    #       - path: /games
+
