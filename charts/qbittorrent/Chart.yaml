@@ -2,7 +2,7 @@ apiVersion: v2
 name: qbittorrent
 description: qbittorrent deployment
 type: application
-version: 1.1.4
+version: 1.1.5
 keywords:
   - qbittorrent
 sources:
