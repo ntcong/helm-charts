@@ -33,8 +33,8 @@ service:
     ports:
       http:
         port: 9696
-  huntarr:
-    controller: huntarr
+  neutarr:
+    controller: neutarr
     ports:
       http:
         port: 9705
@@ -79,14 +79,14 @@ persistence:
       bazarr:
         main:
           - path: /config
-  config-huntarr:
+  config-neutarr:
     enabled: true
     storageClass: longhorn
     accessMode: ReadWriteOnce
     size: 1Gi
     retain: true
     advancedMounts:
-      huntarr:
+      neutarr:
         main:
           - path: /config
   config-cleanuparr:
@@ -137,7 +137,7 @@ ingress:
     enabled: false
   radarr:
     enabled: false
-  huntarr:
+  neutarr:
     enabled: false
   cleanuparr:
     enabled: false
@@ -226,15 +226,17 @@ controllers:
           TZ: UTC
           PUID: 1000
           PGID: 1000
-  huntarr:
+  neutarr:
     containers:
       main:
         image:
-          repository: huntarr/huntarr
-          tag: 9.3.0
+          repository: iampuid0/neutarr
+          tag: 1.8.0
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
+          PUID: 1000
+          PGID: 1000
   cleanuparr:
     containers:
       main:

@@ -2,7 +2,7 @@ apiVersion: v2
 name: servarr
 description: One chart to rule all Servarr
 type: application
-version: 1.6.10
+version: 1.6.11
 keywords:
   - sonarr
   - servarr
@@ -11,7 +11,6 @@ keywords:
   - bazarr
   - prowlarr
   - tautulli
-  - huntarr
   - cleanuparr
 sources:
   - https://github.com/Sonarr/Sonarr
@@ -20,7 +19,7 @@ sources:
   - https://github.com/morpheus65535/bazarr
   - https://github.com/Prowlarr/Prowlarr
   - https://github.com/tautulli/tautulli
-  - https://github.com/plexguide/Huntarr.io
+  - https://github.com/I-am-PUID-0/NeutArr
   - https://github.com/Cleanuparr/Cleanuparr
 maintainers:
   - name: ntcong
