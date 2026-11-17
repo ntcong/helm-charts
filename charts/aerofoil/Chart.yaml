@@ -2,7 +2,7 @@ apiVersion: v2
 name: aerofoil
 description: Aerofoil - Game server browser and launcher
 type: application
-version: 1.0.0
+version: 1.0.1
 keywords:
   - aerofoil
 sources:

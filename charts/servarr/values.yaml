@@ -157,7 +157,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/home-operations/sonarr
-          tag: 4.0.18.2978
+          tag: 4.0.20.3012
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -183,7 +183,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/home-operations/radarr
-          tag: 6.2.1.10461
+          tag: 7.0.3.10918
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -209,7 +209,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/seerr-team/seerr
-          tag: v3.3.0
+          tag: v3.5.2
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -220,7 +220,7 @@ controllers:
       main:
         image:
           repository: linuxserver/bazarr
-          tag: 1.5.6
+          tag: 1.6.2
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -231,7 +231,7 @@ controllers:
       main:
         image:
           repository: iampuid0/neutarr
-          tag: 1.8.0
+          tag: 1.11.1
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -242,7 +242,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/cleanuparr/cleanuparr
-          tag: 2.9.14
+          tag: 2.11.1
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -254,7 +254,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/tautulli/tautulli
-          tag: v2.17.2
+          tag: v2.19.1
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -265,7 +265,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/flaresolverr/flaresolverr
-          tag: v3.5.0
+          tag: v3.5.2
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
@@ -277,7 +277,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/home-operations/prowlarr
-          tag: 2.4.0.5397
+          tag: 3.0.2.5780
           pullPolicy: IfNotPresent
         env:
           TZ: UTC

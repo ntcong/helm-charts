@@ -13,7 +13,7 @@ controllers:
       main:
         image:
           repository: luketanti/aerofoil
-          tag: "2.5.0"
+          tag: "2.6.2"
           pullPolicy: IfNotPresent
         env:
           TZ: UTC
