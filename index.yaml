@@ -2,6 +2,26 @@ apiVersion: v1
 entries:
   adguardhome-sync:
   - apiVersion: v2
+    created: "2026-11-17T06:33:05.708645024Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: AdGuardHome Sync
+    digest: 4551ea2c669280abf1e555a4a7b3fd223821f624aa9320ec890a9ff2a8d07ddb
+    keywords:
+    - adguardhome
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: adguardhome-sync
+    sources:
+    - https://github.com/bakito/adguardhome-sync
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/adguardhome-sync-1.0.8/adguardhome-sync-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
     created: "2026-06-26T15:20:27.723480183Z"
     dependencies:
     - name: common
@@ -102,6 +122,26 @@ entries:
     - https://github.com/ntcong/helm-charts/releases/download/adguardhome-sync-1.0.0/adguardhome-sync-1.0.0.tgz
     version: 1.0.0
   aerofoil:
+  - apiVersion: v2
+    created: "2026-11-17T06:33:05.920440626Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Aerofoil - Game server browser and launcher
+    digest: 1cd91e702b9c54b30ff3fa3aeb000c67eac1913ccd44e2f46f60e68a0346278f
+    keywords:
+    - aerofoil
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: aerofoil
+    sources:
+    - https://github.com/luketanti/aerofoil
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/aerofoil-1.0.1/aerofoil-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     created: "2026-05-18T16:03:07.606586563Z"
     dependencies:
@@ -287,6 +327,26 @@ entries:
     version: 2.40.0
   calibre-automated:
   - apiVersion: v2
+    created: "2026-11-17T06:33:06.207235253Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Calibre Web Automated deployment
+    digest: 03c8ba31c3c6a8ef1a2fa384affbffe6b127d3b3770f3797c5094a8f75dd462e
+    keywords:
+    - calibre
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: calibre-automated
+    sources:
+    - https://github.com/crocodilestick/Calibre-Web-Automated
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/calibre-automated-1.0.4/calibre-automated-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
     created: "2026-02-02T09:25:04.262591977Z"
     dependencies:
     - name: common
@@ -367,6 +427,26 @@ entries:
     - https://github.com/ntcong/helm-charts/releases/download/calibre-automated-1.0.0/calibre-automated-1.0.0.tgz
     version: 1.0.0
   kometa:
+  - apiVersion: v2
+    created: "2026-11-17T06:33:06.43106151Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: kometa deployment
+    digest: 8676543a10d9a9fa33e0187b6e7a09316d707ca3a11fdcab271e58302107f6b5
+    keywords:
+    - kometa
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: kometa
+    sources:
+    - https://github.com/Kometa-Team/Kometa
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/kometa-1.0.7/kometa-1.0.7.tgz
+    version: 1.0.7
   - apiVersion: v2
     created: "2026-06-26T15:20:27.89039604Z"
     dependencies:
@@ -489,6 +569,27 @@ entries:
     version: 1.0.0
   komga:
   - apiVersion: v2
+    created: "2026-11-17T06:33:06.68033936Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 4.5.0
+    description: Komga is a comics/manga server that can be used to serve your comics/manga
+      library to various clients.
+    digest: 4aa97ed2874f90ddd8fe65f513000f77a0566ffee73aebafa2d055f97f9edbf6
+    keywords:
+    - komga
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: komga
+    sources:
+    - https://github.com/gotson/komga
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/komga-1.0.3/komga-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2026-02-02T09:25:04.482018434Z"
     dependencies:
     - name: common
@@ -531,6 +632,26 @@ entries:
     - https://github.com/ntcong/helm-charts/releases/download/komga-1.0.0/komga-1.0.0.tgz
     version: 1.0.0
   qbittorrent:
+  - apiVersion: v2
+    created: "2026-11-17T06:33:06.875617049Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: qbittorrent deployment
+    digest: e1f63cf86d8fa6de66476a785630f5cbcc5f21b67c539206d35c24ff30322157
+    keywords:
+    - qbittorrent
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: qbittorrent
+    sources:
+    - https://github.com/qbittorrent/qBittorrent
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/qbittorrent-1.1.6/qbittorrent-1.1.6.tgz
+    version: 1.1.6
   - apiVersion: v2
     created: "2026-06-26T15:20:28.053913073Z"
     dependencies:
@@ -652,6 +773,40 @@ entries:
     - https://github.com/ntcong/helm-charts/releases/download/qbittorrent-1.0.0/qbittorrent-1.0.0.tgz
     version: 1.0.0
   servarr:
+  - apiVersion: v2
+    created: "2026-11-17T06:33:07.080856065Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: One chart to rule all Servarr
+    digest: 09b8ae37457ed0092d31ff162c3216c6f04ead37a993239d2e72a6d272fe618d
+    keywords:
+    - sonarr
+    - servarr
+    - radarr
+    - overseerr
+    - bazarr
+    - prowlarr
+    - tautulli
+    - cleanuparr
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: servarr
+    sources:
+    - https://github.com/Sonarr/Sonarr
+    - https://github.com/Radarr/Radarr
+    - https://github.com/sct/overseerr
+    - https://github.com/morpheus65535/bazarr
+    - https://github.com/Prowlarr/Prowlarr
+    - https://github.com/tautulli/tautulli
+    - https://github.com/I-am-PUID-0/NeutArr
+    - https://github.com/Cleanuparr/Cleanuparr
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/servarr-1.6.12/servarr-1.6.12.tgz
+    version: 1.6.12
   - apiVersion: v2
     created: "2026-06-26T15:40:38.137075436Z"
     dependencies:
@@ -1301,6 +1456,26 @@ entries:
     version: 1.0.0
   spoolman:
   - apiVersion: v2
+    created: "2026-11-17T06:33:07.3132809Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Spoolman deployment
+    digest: f4e4ad8f3d0556a94a9d152909db6eb2ebbd43b90051d9a4c4a6c0f45eda1fb9
+    keywords:
+    - spoolman
+    maintainers:
+    - email: ntcong.it@gmail.com
+      name: ntcong
+    name: spoolman
+    sources:
+    - https://github.com/Donkie/spoolman
+    type: application
+    urls:
+    - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.4/spoolman-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
     created: "2026-02-02T09:25:05.061435635Z"
     dependencies:
     - name: common
@@ -1360,4 +1535,4 @@ entries:
     urls:
     - https://github.com/ntcong/helm-charts/releases/download/spoolman-1.0.0/spoolman-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-26T15:40:38.137292451Z"
+generated: "2026-11-17T06:33:07.313394415Z"
